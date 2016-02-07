@@ -6,7 +6,7 @@ CREATE TABLE messages (
   id int NOT NULL AUTO_INCREMENT,
   text varchar(144) NOT NULL,
   userId int NOT NULL,
-  roomId int NOT NULL,
+  roomId int,
   PRIMARY KEY(id)
 );
 
