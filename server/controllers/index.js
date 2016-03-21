@@ -23,10 +23,23 @@ module.exports = {
     },
     post: function (req, res) {
     	var params = req.body.username;
-    	console.log('params.............for user', params);
     	models.users.post(params, function(err, results) {
 	    	res.sendStatus(201);
     	});
+    }
+  },
+
+  rooms: {
+    get: function (req, res) {
+      models.rooms.get(function(err, results) {
+          res.send(200);
+      });
+    },
+    post: function (req, res) {
+      var params = req.body.roomname;
+      models.rooms.post(params, function(err, results) {
+          res.sendStatus(201);
+      });
     }
   }
 };

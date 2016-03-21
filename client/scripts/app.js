@@ -51,7 +51,7 @@ var app = {
       type: 'GET',
       contentType: 'application/json',
       success: function(data) {
-
+        app.populateRooms(data);
         app.populateMessages(data);
         if (!data.results || !data.results.length) {
           app.stopSpinner();
@@ -87,6 +87,7 @@ var app = {
   },
 
   populateRooms: function(results) {
+    app.$roomSelect.html('');
     app.$roomSelect.html('<option value="__newRoom">New room...</option><option value="" selected>Lobby</option></select>');
 
     if (results) {
@@ -156,6 +157,18 @@ var app = {
     if (selectIndex === 0) {
       var roomname = prompt('Enter room name');
       if (roomname) {
+        $.ajax({
+          url: '/classes/rooms',
+          type: 'POST',
+          data: JSON.stringify({roomname: roomname}),
+          contentType: 'application/json',
+          success: function (data) {
+            app.fetch();
+          },
+          error: function (data) {
+            console.error('chatterbox: Failed to send message');
+          }
+        });
         app.roomname = roomname;
         app.addRoom(roomname);
         app.$roomSelect.val(roomname);
