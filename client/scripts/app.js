@@ -3,7 +3,7 @@ var app = {
 
   //TODO: The current 'addFriend' function just adds the class 'friend'
   //to all messages sent by the user
-  server: 'http://127.0.0.1:3000/classes/messages',
+  server: '/classes/messages',
   username: 'anonymous',
   roomname: 'lobby',
   lastMessageId: 0,
@@ -71,7 +71,7 @@ var app = {
           return;
         }
         // Get the last message
-        var mostRecentMessage = data.results[data.results.length-1];
+        var mostRecentMessage = data.results[data.results.length - 1];
         var displayedRoom = $('.chat span').first().data('roomname');
         app.stopSpinner();
         // Only bother updating the DOM if we have a new message
@@ -150,8 +150,9 @@ var app = {
 
   addMessage: function(data) {
 
-    if (!data.roomname)
+    if (!data.roomname) {
       data.roomname = 'lobby';
+    }
 
     // Only add messages that are in our current room
     if (data.roomname === app.roomname) {
@@ -161,18 +162,19 @@ var app = {
       // Add in the message data using DOM methods to avoid XSS
       // Store the username in the element's data
       var $username = $('<span class="username"/>');
-      $username.text(data.name+': ').attr('data-username', data.name).attr('data-roomname',data.roomname).appendTo($chat);
+      $username.text(data.name + ': ').attr('data-username', data.name).attr('data-roomname', data.roomname).appendTo($chat);
 
       // Add the friend class
-      if (app.friends[data.username] === true)
+      if (app.friends[data.username] === true) {
         $username.addClass('friend');
+      }
 
       var $message = $('<br><span/>');
       $message.text(data.text).appendTo($chat);
 
       // Add the message to the UI
       app.$chats.append($chat);
-      window.scrollTo(0,document.body.scrollHeight);
+      window.scrollTo(0, document.body.scrollHeight);
     }
   },
 
@@ -186,7 +188,7 @@ var app = {
 
       // Bold all previous messages
       // Escape the username in case it contains a quote
-      var selector = '[data-username="'+username.replace(/"/g, '\\\"')+'"]';
+      var selector = '[data-username="' + username.replace(/"/g, '\\\"') + '"]';
       var $usernames = $(selector).addClass('friend');
     }
     app.postFriendList();
@@ -211,8 +213,7 @@ var app = {
         // Fetch messages again
         app.fetch();
       }
-    }
-    else {
+    } else {
       app.startSpinner();
       // Store as undefined for empty names
       app.roomname = app.$roomSelect.val();
@@ -239,17 +240,17 @@ var app = {
     // $('#friendBox').show();
     var $list = $('#friendList');
     $list.html('');
-    for(var key in app.friends){
+    for (var key in app.friends) {
       $list.append(`<li class='friendOnList'>${key}</li>`);
     }
   },
 
-  startSpinner: function(){
+  startSpinner: function() {
     $('.spinner img').show();
-    $('form input[type=submit]').attr('disabled', "true");
+    $('form input[type=submit]').attr('disabled', 'true');
   },
 
-  stopSpinner: function(){
+  stopSpinner: function() {
     $('.spinner img').fadeOut('fast');
     $('form input[type=submit]').attr('disabled', null);
   }
