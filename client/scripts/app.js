@@ -194,13 +194,11 @@ var app = {
       text: app.$message.val(),
       roomname: app.roomname || 'lobby'
     };
-    console.log(message)
     app.send(message);
     evt.preventDefault();
   },
 
   postFriendList () {
-    // $('#friendBox').show();
     var $list = $('#friendList');
     $list.html('');
     for (var key in app.friends) {
