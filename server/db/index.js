@@ -11,6 +11,13 @@ var dbConnection = mysql.createConnection ({
   database: 'heroku_08d0096ff5bdb97'
 });
 
-dbConnection.connect();
+var connection = mysql.createConnection ({
+  host: 'localhost',
+  user: 'root',
+  password: '123',
+  database: 'chat'
+});
 
-module.exports = dbConnection;
+connection.connect();
+
+module.exports = connection;

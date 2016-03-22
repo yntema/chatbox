@@ -15,7 +15,6 @@ $.ajax({
   data: JSON.stringify({username: enteredUser}),
   contentType: 'application/json',
   success: function (data) {
-    console.log('enteredUser data', data);
   },
   error: function (data) {
     console.error('chatterbox: Failed to send user', data);
