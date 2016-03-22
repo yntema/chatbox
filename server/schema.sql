@@ -12,13 +12,13 @@ CREATE TABLE messages (
 
 CREATE TABLE users (
 	id int NOT NULL AUTO_INCREMENT,
-	name varchar(20),
+	username varchar(20),
   PRIMARY KEY(id)
 );
 
 CREATE TABLE rooms (
 	id int NOT NULL AUTO_INCREMENT,
-	name varchar(20),
+	roomname varchar(20),
   PRIMARY KEY(id)
 );
 

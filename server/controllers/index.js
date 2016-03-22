@@ -32,7 +32,7 @@ module.exports = {
   rooms: {
     get: function (req, res) {
       models.rooms.get(function(err, results) {
-        res.send(200);
+        res.send(results);
       });
     },
     post: function (req, res) {

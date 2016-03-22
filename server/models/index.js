@@ -3,14 +3,15 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function (callback) {
-      db.query('select messages.text, users.name from messages left outer join users on (messages.userId = users.id)', function(err, results) {
+      db.query('select messages.text, users.username, rooms.roomname from messages left outer join users on messages.userId = users.id left outer join rooms on messages.roomId = rooms.id', function(err, results) {
         callback(err, results);
       });
     }, 
     post: function (params, callback) {
-      // var dbArray = [params.body.username,params.body.text,params.body.roomname];
-      db.query('insert into rooms (name) values (?)', params[2]);
-      db.query('insert into messages (text, userId) values (?, (select id from users where name = ? limit 1))', [params[1], params[0]], function(err, results) {
+      var queryStr = 'insert into messages(text, userId, roomId) \
+                            value (?, (select id from users where username = ? limit 1), (select id from rooms where roomname = ? limit 1))';
+      var paramsArray = [params[1], params[0], params[2]];
+      db.query(queryStr, paramsArray, function(err, results) {
         callback(err, results);
       });
     } 
@@ -18,12 +19,12 @@ module.exports = {
 
   users: {
     get: function (callback) {
-      db.query('select name from users', function(err, result) {
+      db.query('select username from users', function(err, result) {
         callback(err, results);
       });
     },
     post: function (params, callback) {
-      db.query('insert into users (name) value (?)', params, function(err, results) {
+      db.query('insert into users (username) value (?)', params, function(err, results) {
         callback(err, results);
       });
     }
@@ -31,12 +32,12 @@ module.exports = {
 
   rooms: {
     get: function (callback) {
-      db.query('select name from rooms', function(err, result) {
+      db.query('select roomname from rooms', function(err, results) {
         callback(err, results);
       });
     },
     post: function (params, callback) {
-      db.query('insert into rooms (name) value (?)', params, function(err, results) {
+      db.query('insert into rooms (roomname) value (?)', params, function(err, results) {
         callback(err, results);
       });
     }
