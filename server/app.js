@@ -8,7 +8,6 @@ var parser = require('body-parser');
 var router = require('./routes.js');
 	
 var app = express();
-module.exports.app = app;
 
 var connection = mysql.createConnection({
   host: 'us-cdbr-iron-east-03.cleardb.net',
@@ -28,8 +27,7 @@ app.use('/classes', router);
 
 app.use(express.static(__dirname + '/../client'));
 
-if (!module.parent) {
-  app.listen(app.get('port'));
-  console.log('Listening on', app.get('port'));
-}
+console.log(`server running on port ${port} in ${process.env.NODE_ENV} mode`);
+app.listen(port);
 
+module.exports = app;
