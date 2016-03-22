@@ -5,9 +5,10 @@ var mysql = require('mysql');
 // and to the database "chat".
 
 var dbConnection = mysql.createConnection ({
-	user: 'root',
-	password: '123',
-	database: 'chat'
+  host: 'us-cdbr-iron-east-03.cleardb.net',
+  user: 'b8f6e89816f2c4',
+  password: '554e96fd',
+  database: 'heroku_08d0096ff5bdb97'
 });
 
 dbConnection.connect();
