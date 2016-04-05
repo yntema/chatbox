@@ -1,2 +1,3 @@
-#databases
-This is a project I completed as a student at [hackreactor](http://hackreactor.com). This project was worked on with a pair.
+#ChatBox
+A chatroom app built with Node, Express, MongoDB and jQuery. 
+Design inspired by Slack.
